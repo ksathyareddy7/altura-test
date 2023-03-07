@@ -10,10 +10,19 @@ type NFTProps = {
 
 const VIDEO_FORMATS = ["mp4", "mov", "wmv", "avi", "mkv", "flv"];
 
+const Details = (props: any) => (
+  <>
+    <h3>{props.nftName}</h3>
+    {props.description ? (
+      <p className="description">{props.description}</p>
+    ) : null}
+  </>
+);
+
 export const Card = ({ data }: NFTProps) => {
   const [showModal, setShowModal] = useState(false);
   const imageUrl = data?.contract?.openSea?.imageUrl;
-  const image = data?.rawMetadata?.image;
+  const image = data?.rawMetadata?.image || data?.rawMetadata?.image_url;
   const finalImageUrl = imageUrl || image;
   const animation_url = data?.rawMetadata?.animation_url;
   const format = data?.media[0]?.format;
@@ -23,6 +32,10 @@ export const Card = ({ data }: NFTProps) => {
 
   const isModel =
     animation_url?.includes("glb") || animation_url?.includes("gltf");
+
+  const description =
+    data?.rawMetadata?.description || data?.contract?.openSea?.description;
+  const miniDescription = description?.substring(0, 120);
 
   const nftName =
     data?.rawMetadata?.name ||
@@ -34,7 +47,7 @@ export const Card = ({ data }: NFTProps) => {
 
   const getAsset = () =>
     isModel ? (
-      //@ts-ignore
+      /*@ts-ignore*/
       <model-viewer
         src={animation_url}
         shadow-intensity="1"
@@ -52,17 +65,6 @@ export const Card = ({ data }: NFTProps) => {
       <img src={finalImageUrl} alt="nft" />
     );
 
-  const getDetails = () => (
-    <>
-      <h3>{nftName}</h3>
-      <p className="description">
-        {data?.rawMetadata?.description
-          ? data?.rawMetadata?.description?.substring(0, 120)
-          : data?.contract?.openSea?.description?.substring(0, 120)}
-      </p>
-    </>
-  );
-
   const openLink = () => {
     window.open(
       `https://opensea.io/assets/${data?.contract?.address}/${data?.tokenId}`,
@@ -70,16 +72,26 @@ export const Card = ({ data }: NFTProps) => {
     );
   };
 
+  if (
+    animation_url?.includes("ipfs") ||
+    image?.includes("ipfs") ||
+    imageUrl?.includes("ipfs")
+  ) {
+    return null;
+  }
+
   return (
     <CardContainer>
       {getAsset()}
-      <div onClick={() => setShowModal(true)}>{getDetails()}</div>
+      <div onClick={() => setShowModal(true)}>
+        <Details nftName={nftName} description={miniDescription} />
+      </div>
       {createPortal(
         <Modal show={showModal} handleClose={handleClose}>
           <ModalCard>
             {getAsset()}
 
-            {getDetails()}
+            <Details nftName={nftName} description={description} />
             <button className="open" onClick={openLink}>
               Open in OpenSea
             </button>

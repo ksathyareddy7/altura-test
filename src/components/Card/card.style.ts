@@ -8,8 +8,8 @@ export const CardContainer = styled.div`
   background-color: #282c34;
   background: linear-gradient(
     0deg,
-    rgba(40, 44, 52, 1) 0%,
-    rgba(17, 0, 32, 0.5) 100%
+    rgba(115, 47, 216, 1) 0%,
+    rgba(115, 47, 216, 0.5) 100%
   );
   box-shadow: 0 7px 20px 5px #00000088;
   border-radius: 0.7rem;
@@ -30,19 +30,43 @@ export const CardContainer = styled.div`
     max-width: 100%;
     height: 250px;
     object-fit: cover;
+    border: 2px dashed white;
   }
   .description {
     margin: 0.5rem 0;
-    color: #a89ec9;
+    color: white;
     height: 100%;
   }
 `;
 
-export const ModalCard = styled(CardContainer)`
+export const ModalCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   .modal-description {
     margin: 20px 0px;
   }
   .open {
     width: auto;
+    background-color: #2181e2;
+    border: 0px;
+    padding: 6px 16px;
+  }
+  h3 {
+    margin: 20px 0;
+  }
+  img {
+    border-radius: 0.5rem;
+    max-width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border: 2px dashed #2181e2;
+  }
+
+  .description {
+    margin: 0.5rem 0;
+    height: 100%;
   }
 `;

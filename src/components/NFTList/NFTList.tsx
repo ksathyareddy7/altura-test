@@ -1,10 +1,8 @@
 import { Card } from "../Card/Card";
-import { Loader } from "../../assets/Icons";
+import { Loader, RightArrow } from "../../assets/Icons";
 
-import { RightArrow } from "../../assets/Icons";
 import {
   Button,
-  H1,
   HeaderContainer,
   Input,
   ListContainer,
@@ -26,7 +24,6 @@ export const NFTList = (props: NFTListProps) => {
   return (
     <MainContainer>
       <HeaderContainer>
-        <H1>SEARCH NFTS USING ADDRESS</H1>
         <Paragraph>
           Provide a wallet or contract address to view all their NFTs.
         </Paragraph>
@@ -44,11 +41,8 @@ export const NFTList = (props: NFTListProps) => {
           </Button>
         </form>
       </HeaderContainer>
-      {props.data ? (
-        <h2>
-          Given address <code>{address}</code> owns{" "}
-          <code>{props.data.length}</code> NFTs
-        </h2>
+      {props.data.length && !props.loading ? (
+        <h2>Found {props.data.length} NFTs</h2>
       ) : null}
       {props.loading ? (
         <LoaderContainer>
