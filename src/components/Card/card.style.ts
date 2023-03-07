@@ -24,6 +24,9 @@ export const CardContainer = styled.div`
     color: white;
     font-weight: 400;
     margin: 16px 0px;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   img {
     border-radius: 0.5rem;
@@ -50,7 +53,7 @@ export const ModalCard = styled.div`
   }
   .open {
     width: auto;
-    background-color: #2181e2;
+    background-color: #732fd8;
     border: 0px;
     padding: 6px 16px;
   }
@@ -62,7 +65,7 @@ export const ModalCard = styled.div`
     max-width: 100%;
     height: 250px;
     object-fit: cover;
-    border: 2px dashed #2181e2;
+    border: 2px dashed #732fd8;
   }
 
   .description {

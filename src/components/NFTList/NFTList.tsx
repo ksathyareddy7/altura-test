@@ -16,6 +16,7 @@ type NFTListProps = {
   data: any[];
   loading: boolean;
   handleSubmit: (e: React.FormEvent, address: string) => void;
+  noData: boolean;
 };
 
 export const NFTList = (props: NFTListProps) => {
@@ -41,9 +42,7 @@ export const NFTList = (props: NFTListProps) => {
           </Button>
         </form>
       </HeaderContainer>
-      {props.data.length && !props.loading ? (
-        <h2>Found {props.data.length} NFTs</h2>
-      ) : null}
+      {!props.data.length && props.noData ? <h2>No NFTs Found</h2> : null}
       {props.loading ? (
         <LoaderContainer>
           <Loader />
